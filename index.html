@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
     <body>
-
+        <div id="root"></div>
     </body>
     <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-    <script> // react js를 사용하여 구현
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel"> // react js를 사용하여 구현 하지만 사용하지 않는 어려우며 불필요한 작업
+        const root = document.getElementById("root")
 
+         //React.createElement("span", {id:"nice-span",style: { color:"red"}},"Hi i'm span");
+       const Span = () => <span onMouseEnter={ ()=> console.log("Enter")}>Hi i'm span</span>;
+       const Button = () => <button style={{background:"tomato",cursor:"pointer"}} onClick={()=> console.log("im clicked")}>Click me</button>
+       const btn = React .createElement("button",{
+        onClick:()=>console.log("click")
+       },"Click me!");
+       // const container = React.createElement("div",null,[span, button]); 풀어쓴 버전
+       // 아래 버전이 jsx를 사용한 버전으로 컨테이너에 함수를 넣는것으로 중요한 포인트는 맨 앞 영문은 대문자 여야함
+       const Container = () => (
+       <div>
+            <Span />
+            <Button />
+        </div>
+        );
+       ReactDOM.render(<Container/>, root);
     </script>
-</html>
+</html> 
