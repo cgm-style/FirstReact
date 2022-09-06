@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel"> // react js를 사용하여 구현 하지만 사용하지 않는 어려우며 불필요한 작업
+        function Btn({intext,size = 14 /* props=값 에서 "= 값" 을 쓰면 해당 값은 기본 값이 됨 해당 props가 존재 하지 않을 때의 값 */,changeValue})  {
+            return <button
+            onClick={changeValue}
+            style={{
+                background:"tomato",
+                color:"white",
+                padding:"10px 20px",
+                borderRadius:10,
+                border:"0px",
+                margin:"10px",
+                cursor:"pointer",
+                fontSize: size ? 18 : 12,
+            }}>{intext}</button>
+        }
+        Btn.propType={
+            intext:PropTypes.string.isRequored,
+            size:PropTypes.number,
+        } 
+        
+        const memorizedBtn = React.memo(Btn) // props가 변경되지 않는다면 re-render하지 않는다.
+        
+        function App()  {   // <함수 porps=값 /> props에 숫자,문자,true 등 다양한 타입을 사용가능함
+            const [value, setValue] = React.useState("Save Changes")
+            const changeValue = () => setValue("Revert Changes")
+            return( 
+                <div>
+                    <Btn intext={value} size={true} changeValue={changeValue}/> 
+                    <Btn intext="Continue" size={false}/>
+                </div>
+            );
+        }
+        const root = document.getElementById("root");
+        ReactDOM.render(<App/>, root);
+    </script>
+
+</html>
